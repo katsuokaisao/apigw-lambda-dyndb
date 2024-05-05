@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  ecr-up:
+    cmds:
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 446282471303.dkr.ecr.ap-northeast-1.amazonaws.com
+      - docker build -t go-lambda --platform linux/amd64 -f ./docker/Dockerfile ./go
+      - docker tag go-lambda:latest 446282471303.dkr.ecr.ap-northeast-1.amazonaws.com/go-lambda:latest
+      - docker push 446282471303.dkr.ecr.ap-northeast-1.amazonaws.com/go-lambda:latest
+  lambda-call:
+    cmds:
+      - aws lambda invoke --function-name lambda-go response.json
