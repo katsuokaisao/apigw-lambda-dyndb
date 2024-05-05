@@ -10,3 +10,6 @@ tasks:
   lambda-call:
     cmds:
       - aws lambda invoke --function-name lambda-go response.json
+  curl:
+    cmds:
+      - curl -v https://gzcl8tyv09.execute-api.ap-northeast-1.amazonaws.com/test/employee
